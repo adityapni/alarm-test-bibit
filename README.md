@@ -26,6 +26,11 @@ Clicking the button will cause a material time picker to appear. Use it to set a
 - Since flutter_local_notifications may not work on Huawei and XiaoMi devices, this app may also don't work on those devices.
 - Android only because I don't have iOS yet.
 
+## Changes to default clock display
+
+Previously if app is opened the clock will display current time. This causes misunderstanding that alarm time is moving despite it isn't.
+This is changed so that the clock will display scheduled alarm time.
+
 
 ## Video Link
 [gdrive](https://drive.google.com/folderview?id=1Ft8W1mLIN-faa65lRmKdSZSbxI0he1NH)
