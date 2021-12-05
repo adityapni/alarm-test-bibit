@@ -89,6 +89,23 @@ class _MyHomePageState extends State<MyHomePage> {
   DateTime clockDisplay = DateTime.now();
   bool changeTime = false;
 
+  getSavedTime() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? savedTimeMiliSec = prefs.getInt('latest alarm');
+    if (savedTimeMiliSec != null){
+      setState(() {
+        clockDisplay = DateTime.fromMillisecondsSinceEpoch(savedTimeMiliSec);
+        changeTime = true;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    getSavedTime();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -111,11 +128,13 @@ class _MyHomePageState extends State<MyHomePage> {
             Builder(
               builder: (context) {
                 if(selectedTime!=null) {
-                  return Text('${selectedTime!.hour} : ${selectedTime!.minute}',
+                  String padZeroHour = (selectedTime!.hour < 10) ? '0' : '';
+                  String padZeroMinute = (selectedTime!.minute < 10) ? '0' : '';
+                  return Text('$padZeroHour${selectedTime!.hour} : $padZeroMinute${selectedTime!.minute}',
                   style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),);
                 }
                 return Text('__ : __',
-                  style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),);;
+                  style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),);
               }
             ),
             SizedBox(height: height*0.1,),
